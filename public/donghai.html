@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="This is a websocket works">
+    <meta name="author" content="kangw3n">
+
+    <title>《東海漁歌》觀眾協力演奏</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- colorbox CSS -->
+    <link rel="stylesheet" href="css/colorbox.css" />
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/demoStyles.css"/>
+</head>
+
+<body onload="init();">
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="index.html"></a>
+                </li>
+                <li>
+                    <a href="index.html">關於音樂會</a>
+                </li>
+                <li>
+                    <a href="people.html">人員介紹</a>
+                </li>
+                <li>
+                    <a href="music.html">曲子簡介</a>
+                </li>
+                <li>
+                    <a href="diitu.html">DIITU時光牆</a>
+                </li>
+                <li class="divider"></li>
+                 
+                <li>
+                    <a href="#" class="dropdown-toggle needsclick" data-toggle="dropdown">協同合奏 <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-right needsclick" role="menu">
+                         <!--<li><a href="/donghai.html">《東海漁歌》</a></li>-->
+                        <li><a href="/alus.html">《Alus Jua Dindang》</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+            	<div id="loader"></div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="header"><a href="#menu-toggle" class="btn btn-default menuClass" id="menu-toggle"></a></div>
+                        <h1>《東海漁歌》觀眾協力演奏</h1>
+                        <div id="content">
+                            <div id="3" ontouchstart="playSound(this)" onclick="playSound(this)" class="gridBox"><div class="textsize noselect">風聲</div></div>
+                            <div id="4" ontouchstart="playSound(this)" onclick="playSound(this)" class="gridBox"><div class="textsize noselect">雷聲</div></div>
+                            <div id="5" ontouchstart="playSound(this)" onclick="playSound(this)" class="gridBox"><div class="textsize noselect">雨聲</div></div>
+                        </div>
+                        <div style="clear:both; padding-bottom:14px;"></div>
+                         <div id="error">
+                            <h1>Sorry!</h1>
+                            <p>SoundJS is not currently supported in your browser.</p>
+                            <p>Please <a href="http://github.com/CreateJS/SoundJS/issues" target="_blank">log a bug</a>
+                                with the device and browser you are using.  Thank you.</p>
+                        </div>
+                        
+                       
+                        <h3>目前有 <code class="connection">0</code> 位觀眾一起進行創作！<span class="nameplace"></span></h3>
+                        <div class="bs-example"><fieldset><legend>現場觀眾:</legend><div class="usercontainer"></div></fieldset></div><br>
+                         
+                        <p>點擊的時候請迅速收起，以達到最佳效果。</p>
+                        <p>建議使用Chrome版本瀏覽器以達到更佳效果 <code>#<a href="http://g.co/ChromeApp">g.co/ChromeApp</a></code>.</p>
+                        <p class="muted credit">&copy;kangw3n <a href="#">《想樂&#8226;鄉樂&#8226;享樂》互動音樂會</a> and <a href="#">政治大學華夏國樂社</a>.</p>
+                        
+                        <!-- This contains the hidden content for inline calls -->
+                        <div style='display:none'>
+                            <div id='inline_content' style='padding:10px; background:#fff;'>
+                            <h3>請輸入您的綽號</h3>
+                            <form action="" id="myform1" ><input autofocus required id='m' placeholder='請輸入綽號' autocomplete='off'/><br><button>確定</button></form>
+                          </div>
+                        </div>
+                        
+                  </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+	 	
+            
+           
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="js/jquery-1.11.0.js"></script>
+    
+    <script src="//www.parsecdn.com/js/parse-1.3.2.min.js"></script>
+    
+     <!-- SOCKET.IO scripts-->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- COLORBOX JS -->
+    <script src="js/jquery.colorbox.js"></script>   
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+     <!-- fastclick -->
+    <script type='application/javascript' src='js/fastclick.js'></script>
+    <script type='application/javascript' src='js/tappy.js'></script>
+    <!-- Note: All SoundJS classes are listed here: -->
+	<script type="text/javascript" src="js/Proxy.js"></script>
+	<script type="text/javascript" src="js/IndexOf.js"></script>
+	<script type="text/javascript" src="js/Event.js"></script>
+	<script type="text/javascript" src="js/EventDispatcher.js"></script>
+    <script type="text/javascript" src="js/Sound.js"></script>
+    <script type="text/javascript" src="js/WebAudioPlugin.js"></script>
+    <script type="text/javascript" src="js/HTMLAudioPlugin.js"></script>
+    <!-- We also provide hosted minified versions of all CreateJS libraries.
+        http://code.createjs.com -->
+     <!-- SoundJS vs SocketIO -->
+    <script type="text/javascript" src="js/script.js"></script>
+	<script>
+        var preload;
+        function init() {
+            if (window.top != window) {
+                document.getElementById("header").style.display = "none";
+            }
+
+            if (!createjs.Sound.initializeDefaultPlugins()) {
+                document.getElementById("error").style.display = "block";
+                document.getElementById("content").style.display = "none";
+                return;
+            }
+			document.getElementById("loader").className = "loader";
+			
+			//detection for mobile and desktop behaviour
+			if(isMobile()) {
+				console.log("mobile");
+				$('#3,#4,#5').removeAttr( "onclick" );
+			} else {
+				console.log("desktop");
+				$('#3,#4,#5').removeAttr( "ontouchstart" );
+				
+				var assetsPath = "/sounds/";
+				var manifest = [
+					{src:"wind-howl-01.mp3", id:3},
+					{src:"Thunder1.mp3", id:4},
+					{src:"raining.mp3", id:5}  //OJR would prefer a new sound rather than a copy
+				];
+
+				createjs.Sound.alternateExtensions = ["ogg"];
+				createjs.Sound.alternateExtensions = ["mp3"];	// add other extensions to try loading if the src file extension is not supported
+				createjs.Sound.addEventListener("fileload", createjs.proxy(soundLoaded, this)); // add an event listener for when load is completed
+				createjs.Sound.registerManifest(manifest, assetsPath);
+			}
+        }
+    </script>
+
+</body>
+
+</html>
